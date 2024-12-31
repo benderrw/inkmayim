@@ -1,37 +1,46 @@
 import Image from 'next/image'
-import { Geist, Geist_Mono } from 'next/font/google'
+import Head from 'next/head'
+import { Poppins } from 'next/font/google'
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin']
-})
-
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
-	subsets: ['latin']
+const poppinsSans = Poppins({
+	variable: '--font-poppins-sans',
+	weight: '300'
 })
 
 export default function Home() {
 	return (
-		<div
-			className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-		>
-			<main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-				<a
-					href="https://www.instagram.com/inkmayim/"
-					target="_blank"
-					rel="noreferrer"
-				>
-					<Image
-						className="dark:invert"
-						src="/svgs/inkmayim.svg"
-						alt="Inkmayim logo"
-						width={180}
-						height={38}
-						priority
-					/>
-				</a>
-			</main>
-		</div>
+		<>
+			<Head>
+				<title>Inkmayim | Arte • Tattoo • Piercing</title>
+				<meta
+					name="description"
+					content="Inkmayim - Arte, Tattoo, Piercing, Numerologia e geometria sagrada como guias"
+				/>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<link rel="icon" href="/favicon/favicon.ico" />
+			</Head>
+			<div
+				className={`${poppinsSans.variable} font-[family-name:var(--font-poppins-sans)] grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20`}
+			>
+				<main className="flex flex-col gap-8 row-start-2 items-center">
+					<a
+						href="https://www.instagram.com/inkmayim/"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<Image
+							className="dark:invert"
+							src="/svgs/inkmayim.svg"
+							alt="Imagem de logo da Inkmayim"
+							width={180}
+							height={38}
+							priority
+							style={{ transform: 'translateX(-11.1%)' }}
+						/>
+					</a>
+					<p className="text-center">Em breve</p>
+				</main>
+			</div>
+		</>
 	)
 }
