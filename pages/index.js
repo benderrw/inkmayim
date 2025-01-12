@@ -35,7 +35,7 @@ export default function Home() {
 			<div
 				className={`${interSans.variable} font-[family-name:var(--font-inter-sans)] flex justify-center min-h-screen`}
 			>
-				<main className="flex flex-col justify-center">
+				<main className="flex flex-col items-center justify-center">
 					<a
 						href="https://www.instagram.com/inkmayim/"
 						target="_blank"
