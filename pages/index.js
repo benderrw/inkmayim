@@ -16,6 +16,10 @@ export default function Home() {
 					Xamânicos
 				</title>
 				<meta
+					name="keywords"
+					content="Inkmayim, tatuadora, artista visual, tatuagem, arte corporal, body piercing, numerologia, símbolos Adinkra, cultura africana, espiritualidade, Pelotas"
+				/>
+				<meta
 					name="description"
 					content="inkmayim oferece tatuagens artísticas, body piercing, numerologia e venda de instrumentos xamânicos. Conecte-se com símbolos culturais e espirituais através de flashes exclusivos, leituras personalizadas e itens únicos de espiritualidade e autoconhecimento."
 				/>
