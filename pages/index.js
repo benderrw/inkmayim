@@ -1,18 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter, Antonio } from 'next/font/google'
 import Link from 'next/link'
 import Services from '@/components/services'
-
-const interSans = Inter({
-	variable: '--font-inter-sans',
-	subsets: ['latin']
-})
-
-const antonioSans = Antonio({
-	variable: '--font-antonio-sans',
-	subsets: ['latin']
-})
 
 export default function Home() {
 	return (
@@ -46,7 +35,7 @@ export default function Home() {
 				<link rel="preload" href="/images/DSC_0087.jpg" as="image" />
 			</Head>
 			<main
-				className={`${interSans.variable} font-[family-name:var(--font-inter-sans)] flex flex-col h-screen relative overflow-hidden pb-20 md:pb-8 box-border`}
+				className={`flex flex-col h-screen relative overflow-hidden pb-20 md:pb-8 box-border`}
 				style={{
 					backgroundImage: 'url(/images/20241222_192429.jpg)',
 					backgroundSize: 'cover',
@@ -72,7 +61,7 @@ export default function Home() {
 						<div className="flex flex-col w-5/5 md:w-3/5">
 							<div className="text-base">Artista</div>
 							<h1
-								className={`text-6xl font-bold uppercase leading-none  mb-3 ${antonioSans.variable} font-[family-name:var(--font-antonio-sans)]`}
+								className={`text-6xl font-bold uppercase leading-none mb-3 font-[family-name:var(--font-antonio-sans)]`}
 							>
 								Katlene
 								<br />

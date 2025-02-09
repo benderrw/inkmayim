@@ -16,6 +16,11 @@ export default {
 				sm: 'inset 0 0 0px 0.3px #333',
 				md: 'inset 0 0 0px 0.3px #333',
 				lg: 'inset 0 0 0px 0.3px #333'
+			},
+			container: {
+				screens: {
+					'3xl': '1280px'
+				}
 			}
 		}
 	},
