@@ -29,7 +29,7 @@ export default function Services() {
 
 	return (
 		<div
-			className="absolute bottom-0 left-0 min-w-full flex flex-row gap-4 overflow-x-auto scrollbar-x"
+			className="absolute bottom-0 left-0 min-w-full flex flex-row gap-3 overflow-x-auto scrollbar-x"
 			ref={containerRef}
 			style={{ width: width }}
 		>

@@ -1,11 +1,16 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Inter, Antonio } from 'next/font/google'
 import Link from 'next/link'
 import Services from '@/components/services'
 
 const interSans = Inter({
 	variable: '--font-inter-sans',
+	subsets: ['latin']
+})
+
+const antonioSans = Antonio({
+	variable: '--font-antonio-sans',
 	subsets: ['latin']
 })
 
@@ -41,7 +46,7 @@ export default function Home() {
 				<link rel="preload" href="/images/DSC_0087.jpg" as="image" />
 			</Head>
 			<main
-				className={`${interSans.variable} font-[family-name:var(--font-inter-sans)] flex flex-col h-screen relative overflow-hidden pb-8 box-border`}
+				className={`${interSans.variable} font-[family-name:var(--font-inter-sans)] flex flex-col h-screen relative overflow-hidden pb-20 md:pb-8 box-border`}
 				style={{
 					backgroundImage: 'url(/images/20241222_192429.jpg)',
 					backgroundSize: 'cover',
@@ -64,21 +69,23 @@ export default function Home() {
 
 				<div className="flex items-end h-full">
 					<div className="container mx-auto px-4 flex flex-col md:flex-row md:items-center gap-4">
-						<div className="flex flex-col w-4/5 md:w-2/5">
+						<div className="flex flex-col w-5/5 md:w-3/5">
 							<div className="text-base">Artista</div>
-							<h1 className="text-3xl font-bold uppercase leading-none mb-2">
+							<h1
+								className={`text-6xl font-bold uppercase leading-none  mb-3 ${antonioSans.variable} font-[family-name:var(--font-antonio-sans)]`}
+							>
 								Katlene
 								<br />
 								Basílio Torres
 							</h1>
-							<p className="text-xs text-shadow-sm">
+							<p className="text-xs text-shadow-sm tracking-wide w-4/5">
 								Tatuadora e artista visual com uma trajetória voltada para
 								expressar, por meio da arte, a conexão com o corpo, mente e
 								espírito.
 							</p>
 						</div>
 						<div
-							className="flex gap-4 md:w-3/5 relative"
+							className="flex gap-4 md:w-2/5 relative"
 							style={{ height: '250px' }}
 						>
 							<Services />
