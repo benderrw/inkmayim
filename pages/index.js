@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
-import Services from '@/components/services'
+import Image from 'next/image'
+import { ScrollbarXViewport } from '@/components/scrollbar-x'
 
 export default function Home() {
 	return (
@@ -35,7 +35,8 @@ export default function Home() {
 				<link rel="preload" href="/images/DSC_0087.jpg" as="image" />
 			</Head>
 			<main
-				className={`flex flex-col h-screen relative overflow-hidden pb-20 md:pb-8 box-border`}
+				className={`flex flex-col h-screen pb-20 md:pb-8 box-border relative overflow-hidden`}
+				//
 				style={{
 					backgroundImage: 'url(/images/20241222_192429.jpg)',
 					backgroundSize: 'cover',
@@ -43,7 +44,7 @@ export default function Home() {
 				}}
 			>
 				<header>
-					<div className="container mx-auto px-4 py-6">
+					<div className="container mx-auto px-4 py-6 box-border">
 						<Link href="/" className="inline-block">
 							<Image
 								src="/svgs/inkmayim.svg"
@@ -57,8 +58,8 @@ export default function Home() {
 				</header>
 
 				<div className="flex items-end h-full">
-					<div className="container mx-auto px-4 flex flex-col md:flex-row md:items-center gap-4">
-						<div className="flex flex-col w-5/5 md:w-3/5">
+					<div className="container mx-auto px-4 box-border flex flex-col md:flex-row md:items-center gap-4">
+						<div className="flex flex-col w-5/5 md:w-3/5 select-none">
 							<div className="text-base">Artista</div>
 							<h1
 								className={`text-6xl font-bold uppercase leading-none mb-3 font-[family-name:var(--font-antonio-sans)]`}
@@ -73,11 +74,67 @@ export default function Home() {
 								espírito.
 							</p>
 						</div>
-						<div
-							className="flex gap-4 md:w-2/5 relative"
-							style={{ height: '250px' }}
-						>
-							<Services />
+						<div className="flex gap-4 md:w-2/5 relative h-[250px]">
+							<ScrollbarXViewport className="gap-3">
+								<Link
+									href="/tattoo"
+									className="select-none block relative w-[150px] shrink-0 rounded-xl box-shadow-sm"
+									style={{
+										width: '150px',
+										height: '250px',
+										backgroundImage: 'url(/images/DSC_0913.jpg)',
+										backgroundSize: 'cover',
+										backgroundRepeat: 'no-repeat',
+										backgroundPosition: 'center'
+									}}
+								>
+									<h2 className="absolute bottom-3 left-2 text-xs">Tattoo</h2>
+								</Link>
+								<Link
+									href="/piercing"
+									className="select-none block relative w-[150px] shrink-0 rounded-xl box-shadow-sm"
+									style={{
+										width: '150px',
+										height: '250px',
+										backgroundImage: 'url(/images/DSC_0515.jpg)',
+										backgroundSize: 'cover',
+										backgroundRepeat: 'no-repeat',
+										backgroundPosition: 'center'
+									}}
+								>
+									<h2 className="absolute bottom-3 left-2 text-xs">Piercing</h2>
+								</Link>
+								<Link
+									href="/photography"
+									className="select-none block relative w-[150px] shrink-0 rounded-xl box-shadow-sm"
+									style={{
+										width: '150px',
+										height: '250px',
+										backgroundImage: 'url(/images/DSC_0087.jpg)',
+										backgroundSize: 'cover',
+										backgroundRepeat: 'no-repeat'
+									}}
+								>
+									<h2 className="absolute bottom-3 left-2 text-xs">
+										Fotografias
+									</h2>
+								</Link>
+								<Link
+									href="/promotions"
+									className="select-none block relative w-[150px] shrink-0 rounded-xl box-shadow-sm"
+									style={{
+										width: '150px',
+										height: '250px',
+										backgroundImage: 'url(/images/300x500.jpg)',
+										backgroundSize: 'cover',
+										backgroundRepeat: 'no-repeat'
+									}}
+								>
+									<h2 className="absolute bottom-3 left-2 text-xs">
+										Promoções
+									</h2>
+								</Link>
+							</ScrollbarXViewport>
 						</div>
 					</div>
 				</div>

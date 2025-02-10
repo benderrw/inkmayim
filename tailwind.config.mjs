@@ -8,19 +8,21 @@ export default {
 	theme: {
 		extend: {
 			textShadow: {
-				sm: '1px 1px 2px rgba(0, 0, 0, 0.5)',
-				md: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-				lg: '3px 3px 6px rgba(0, 0, 0, 0.7)'
-			},
-			boxShadow: {
-				sm: 'inset 0 0 0px 0.3px #333',
-				md: 'inset 0 0 0px 0.3px #333',
-				lg: 'inset 0 0 0px 0.3px #333'
+				sm: '1px 1px 2px rgba(0, 0, 0, 0.5)'
 			},
 			container: {
 				screens: {
 					'3xl': '1280px'
 				}
+			},
+			keyframes: {
+				swipe: {
+					'0%, 100%': { transform: 'translateX(0)' },
+					'50%': { transform: 'translateX(20px)' }
+				}
+			},
+			animation: {
+				swipe: 'swipe 2.5s ease-in-out infinite'
 			}
 		}
 	},
@@ -28,11 +30,10 @@ export default {
 		function ({ addUtilities }) {
 			addUtilities({
 				'.text-shadow-sm': { textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' },
-				'.text-shadow-md': { textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' },
-				'.text-shadow-lg': { textShadow: '3px 3px 6px rgba(0, 0, 0, 0.7)' },
 				'.box-shadow-sm': { boxShadow: 'inset 0 0 0px 0.3px #333' },
-				'.box-shadow-md': { boxShadow: 'inset 0 0 0px 0.3px #333' },
-				'.box-shadow-lg': { boxShadow: 'inset 0 0 0px 0.3px #333' }
+				'.box-shadow-lg': {
+					boxShadow: 'inset 0px -40vh 23px -8px rgba(0,0,0,.80)'
+				}
 			})
 		}
 	]
