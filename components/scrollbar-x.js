@@ -1,23 +1,42 @@
 import { useRef, useState, useEffect } from 'react'
+import { Scrollbar } from 'react-scrollbars-custom'
 
 export function ScrollbarX({ className, children, ...props }) {
-	const containerRef = useRef(null)
+	const scrollbarRef = useRef(null)
 
-	useEffect(() => {
-		containerRef.current.addEventListener('wheel', function (event) {
-			event.preventDefault() // Evita o scroll padrão
-			containerRef.current.scrollLeft += event.deltaY // Move horizontalmente
-		})
-	}, [])
+	const handleWheel = (event) => {
+		if (scrollbarRef.current) {
+			scrollbarRef.current.scrollLeft += event.deltaY
+			event.preventDefault()
+		}
+	}
 
 	return (
-		<div
-			ref={containerRef}
-			className={`cursor-grab active:cursor-grabbing flex flex-row overflow-x-auto ${className}`}
+		<Scrollbar
 			{...props}
+			ref={scrollbarRef}
+			noScrollY
+			onWheel={handleWheel}
+			thumbXProps={{
+				style: {
+					backgroundColor: '#666', // Cor do scroll horizontal
+					borderRadius: '10px',
+					height: '2px'
+				}
+			}}
+			trackXProps={{
+				style: {
+					backgroundColor: '#333', // Cor da trilha do scroll horizontal
+					borderRadius: '10px',
+					height: '2px'
+				}
+			}}
+			className=""
 		>
-			{children}
-		</div>
+			<div className={`flex flex-row flex-nowrap items-end ${className}`}>
+				{children}
+			</div>
+		</Scrollbar>
 	)
 }
 
