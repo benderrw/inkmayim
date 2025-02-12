@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { ScrollbarX } from '@/components/scrollbar-x'
 import { PiHandSwipeLeftLight } from 'react-icons/pi'
+import { useRef, useState } from 'react'
 
 const interSans = Inter({
 	variable: '--font-inter-sans',
@@ -12,6 +13,11 @@ const interSans = Inter({
 })
 
 export default function Home() {
+	const galleryRef = useRef(null)
+	const simblesRef = useRef(null)
+
+	const [filter, setFilter] = useState('all')
+
 	return (
 		<>
 			<Head>
@@ -130,7 +136,7 @@ export default function Home() {
 						</div>
 					</div>
 				</section>
-				<section className="bg-black">
+				<section className="bg-black" id="galeria">
 					<div className="container mx-auto px-4 py-20">
 						<div className="flex flex-col gap-1 items-center">
 							<p className="text-gray-400 text-xs text-center">
@@ -140,12 +146,24 @@ export default function Home() {
 							<h2 className="text-white text-5xl font-bold font-[family-name:var(--font-antonio-sans)] mb-10">
 								Galeria de TATTOO's
 							</h2>
+
+							{/* BOTÕES DE FILTRO */}
 							<div className="w-full max-w-7xl mx-auto my-12 flex flex-col flex-wrap justify-center gap-5 p-5">
 								<div
 									className="flex justify-center"
 									style={{ marginTop: '-40px' }}
 								>
-									<button class="w-40 h-40 relative transition-transform grayscale triangle hover:scale-105 hover:grayscale-0 hover:z-10">
+									<button
+										data-filter="coberturas"
+										onClick={() =>
+											setFilter(filter === 'coberturas' ? 'all' : 'coberturas')
+										}
+										className={`relative transition-transform grayscale triangle ${
+											filter === 'coberturas'
+												? 'scale-105 grayscale-0 z-10'
+												: ''
+										}`}
+									>
 										<Image
 											src="/images/DSC_0087.jpg"
 											alt="Galeria 1"
@@ -153,13 +171,21 @@ export default function Home() {
 											height={275}
 											className="object-cover w-full h-full"
 										/>
-										<div class="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
+										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
 												Coberturas
 											</div>
 										</div>
 									</button>
-									<button class="w-40 h-40 relative transition-transform grayscale triangle inverted hover:scale-105 hover:grayscale-0 hover:z-10">
+									<button
+										data-filter="flash"
+										onClick={() =>
+											setFilter(filter === 'flash' ? 'all' : 'flash')
+										}
+										className={`relative transition-transform grayscale triangle inverted ${
+											filter === 'flash' ? 'scale-105 grayscale-0 z-10' : ''
+										}`}
+									>
 										<Image
 											src="/images/DSC_0087.jpg"
 											alt="Galeria 2"
@@ -167,13 +193,21 @@ export default function Home() {
 											height={275}
 											className="object-cover w-full h-full"
 										/>
-										<div class="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
+										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
 												Flash
 											</div>
 										</div>
 									</button>
-									<button class="w-40 h-40 relative transition-transform grayscale triangle hover:scale-105 hover:grayscale-0 hover:z-10">
+									<button
+										data-filter="frases"
+										onClick={() =>
+											setFilter(filter === 'frases' ? 'all' : 'frases')
+										}
+										className={`relative transition-transform grayscale triangle ${
+											filter === 'frases' ? 'scale-105 grayscale-0 z-10' : ''
+										}`}
+									>
 										<Image
 											src="/images/DSC_0087.jpg"
 											alt="Galeria 3"
@@ -181,13 +215,25 @@ export default function Home() {
 											height={275}
 											className="object-cover w-full h-full"
 										/>
-										<div class="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
+										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
 												Frases
 											</div>
 										</div>
 									</button>
-									<button class="hidden sm:block w-40 h-40 relative transition-transform grayscale triangle inverted hover:scale-105 hover:grayscale-0 hover:z-10">
+									<button
+										data-filter="fechamentos"
+										onClick={() =>
+											setFilter(
+												filter === 'fechamentos' ? 'all' : 'fechamentos'
+											)
+										}
+										className={`hidden sm:block relative transition-transform grayscale triangle inverted ${
+											filter === 'fechamentos'
+												? 'scale-105 grayscale-0 z-10'
+												: ''
+										}`}
+									>
 										<Image
 											src="/images/DSC_0087.jpg"
 											alt="Galeria 4"
@@ -195,13 +241,21 @@ export default function Home() {
 											height={275}
 											className="object-cover w-full h-full"
 										/>
-										<div class="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
+										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
 												Fechamentos
 											</div>
 										</div>
 									</button>
-									<button class="hidden sm:block w-40 h-40 relative transition-transform grayscale triangle hover:scale-105 hover:grayscale-0 hover:z-10">
+									<button
+										data-filter="simbolos"
+										onClick={() =>
+											setFilter(filter === 'simbolos' ? 'all' : 'simbolos')
+										}
+										className={`hidden sm:block relative transition-transform grayscale triangle ${
+											filter === 'simbolos' ? 'scale-105 grayscale-0 z-10' : ''
+										}`}
+									>
 										<Image
 											src="/images/DSC_0087.jpg"
 											alt="Galeria 5"
@@ -209,7 +263,7 @@ export default function Home() {
 											height={275}
 											className="object-cover w-full h-full"
 										/>
-										<div class="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
+										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
 												Símbolos
 											</div>
@@ -220,7 +274,19 @@ export default function Home() {
 									className="sm:hidden flex justify-center"
 									style={{ marginTop: '-40px' }}
 								>
-									<button class="w-40 h-40 relative transition-transform grayscale triangle inverted hover:scale-105 hover:grayscale-0 hover:z-10">
+									<button
+										data-filter="fechamentos"
+										onClick={() =>
+											setFilter(
+												filter === 'fechamentos' ? 'all' : 'fechamentos'
+											)
+										}
+										className={`relative transition-transform grayscale triangle inverted ${
+											filter === 'fechamentos'
+												? 'scale-105 grayscale-0 z-10'
+												: ''
+										}`}
+									>
 										<Image
 											src="/images/DSC_0087.jpg"
 											alt="Galeria 4"
@@ -228,13 +294,21 @@ export default function Home() {
 											height={275}
 											className="object-cover w-full h-full"
 										/>
-										<div class="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
+										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
 												Fechamentos
 											</div>
 										</div>
 									</button>
-									<button class="w-40 h-40 relative transition-transform grayscale triangle hover:scale-105 hover:grayscale-0 hover:z-10">
+									<button
+										data-filter="simbolos"
+										onClick={() =>
+											setFilter(filter === 'simbolos' ? 'all' : 'simbolos')
+										}
+										className={`relative transition-transform grayscale triangle ${
+											filter === 'simbolos' ? 'scale-105 grayscale-0 z-10' : ''
+										}`}
+									>
 										<Image
 											src="/images/DSC_0087.jpg"
 											alt="Galeria 5"
@@ -242,7 +316,7 @@ export default function Home() {
 											height={275}
 											className="object-cover w-full h-full"
 										/>
-										<div class="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
+										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
 												Símbolos
 											</div>
@@ -250,14 +324,25 @@ export default function Home() {
 									</button>
 								</div>
 							</div>
+							{/* /BOTÕES DE FILTRO */}
 
-							<div className="flex flex-row flex-wrap gap-3">
+							{/* GALERIAS */}
+							<div
+								className={`${
+									filter !== 'simbolos' ? 'flex' : 'hidden'
+								} flex-row flex-wrap gap-5`}
+								ref={galleryRef}
+							>
 								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
+									className={`${
+										[...filter.matchAll('coberturas|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="coberturas"
 								>
 									<Image
-										src="/images/coberturas.jpg"
+										src="/images/tattoo-thumb-01.jpg"
 										alt="Coberturas"
 										className="object-cover"
 										width={175}
@@ -265,11 +350,31 @@ export default function Home() {
 									/>
 								</div>
 								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
+									className={`${
+										[...filter.matchAll('flash|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="flash"
 								>
 									<Image
-										src="/images/coberturas.jpg"
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Flash"
+										className="object-cover"
+										width={175}
+										height={200}
+									/>
+								</div>
+								<div
+									className={`${
+										[...filter.matchAll('flash|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="flash"
+								>
+									<Image
+										src="/images/tattoo-thumb-01.jpg"
 										alt="Coberturas"
 										className="object-cover"
 										width={175}
@@ -277,11 +382,15 @@ export default function Home() {
 									/>
 								</div>
 								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
+									className={`${
+										[...filter.matchAll('coberturas|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="coberturas"
 								>
 									<Image
-										src="/images/coberturas.jpg"
+										src="/images/tattoo-thumb-01.jpg"
 										alt="Coberturas"
 										className="object-cover"
 										width={175}
@@ -289,11 +398,79 @@ export default function Home() {
 									/>
 								</div>
 								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
+									className={`${
+										[...filter.matchAll('frases|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="frases"
 								>
 									<Image
-										src="/images/coberturas.jpg"
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Frases"
+										className="object-cover"
+										width={175}
+										height={200}
+									/>
+								</div>
+								<div
+									className={`${
+										[...filter.matchAll('fechamentos|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="fechamentos"
+								>
+									<Image
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Fechamentos"
+										className="object-cover"
+										width={175}
+										height={200}
+									/>
+								</div>
+								<div
+									className={`${
+										[...filter.matchAll('frases|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="frases"
+								>
+									<Image
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Frases"
+										className="object-cover"
+										width={175}
+										height={200}
+									/>
+								</div>
+								<div
+									className={`${
+										[...filter.matchAll('frases|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="frases"
+								>
+									<Image
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Frases"
+										className="object-cover"
+										width={175}
+										height={200}
+									/>
+								</div>
+								<div
+									className={`${
+										[...filter.matchAll('coberturas|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="coberturas"
+								>
+									<Image
+										src="/images/tattoo-thumb-01.jpg"
 										alt="Coberturas"
 										className="object-cover"
 										width={175}
@@ -301,95 +478,47 @@ export default function Home() {
 									/>
 								</div>
 								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
+									className={`${
+										[...filter.matchAll('flash|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="flash"
 								>
 									<Image
-										src="/images/coberturas.jpg"
-										alt="Coberturas"
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Flash"
 										className="object-cover"
 										width={175}
 										height={200}
 									/>
 								</div>
 								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
+									className={`${
+										[...filter.matchAll('flash|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="flash"
 								>
 									<Image
-										src="/images/coberturas.jpg"
-										alt="Coberturas"
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Flash"
 										className="object-cover"
 										width={175}
 										height={200}
 									/>
 								</div>
 								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
+									className={`${
+										[...filter.matchAll('coberturas|all', 'g')].length
+											? 'block'
+											: 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="coberturas"
 								>
 									<Image
-										src="/images/coberturas.jpg"
-										alt="Coberturas"
-										className="object-cover"
-										width={175}
-										height={200}
-									/>
-								</div>
-								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
-								>
-									<Image
-										src="/images/coberturas.jpg"
-										alt="Coberturas"
-										className="object-cover"
-										width={175}
-										height={200}
-									/>
-								</div>
-								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
-								>
-									<Image
-										src="/images/coberturas.jpg"
-										alt="Coberturas"
-										className="object-cover"
-										width={175}
-										height={200}
-									/>
-								</div>
-								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
-								>
-									<Image
-										src="/images/coberturas.jpg"
-										alt="Coberturas"
-										className="object-cover"
-										width={175}
-										height={200}
-									/>
-								</div>
-								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
-								>
-									<Image
-										src="/images/coberturas.jpg"
-										alt="Coberturas"
-										className="object-cover"
-										width={175}
-										height={200}
-									/>
-								</div>
-								<div
-									className="text-white text-xs"
-									style={{ flex: '1 1 auto' }}
-								>
-									<Image
-										src="/images/coberturas.jpg"
+										src="/images/tattoo-thumb-01.jpg"
 										alt="Coberturas"
 										className="object-cover"
 										width={175}
@@ -397,6 +526,29 @@ export default function Home() {
 									/>
 								</div>
 							</div>
+
+							<div
+								className={`${
+									filter === 'simbolos' ? 'flex' : 'hidden'
+								} flex-row flex-wrap gap-3`}
+								ref={simblesRef}
+							>
+								<div
+									className={`${
+										filter === 'simbolos' ? 'block' : 'hidden'
+									} text-white text-xs flex-1 basis-auto`}
+									data-filter="lideranca-justica-e-moralidade"
+								>
+									<Image
+										src="/images/tattoo-thumb-01.jpg"
+										alt="Adinkras"
+										className="object-cover"
+										width={175}
+										height={200}
+									/>
+								</div>
+							</div>
+							{/* /GALERIAS */}
 						</div>
 					</div>
 				</section>
