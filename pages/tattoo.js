@@ -13,10 +13,7 @@ const interSans = Inter({
 })
 
 export default function Home() {
-	const galleryRef = useRef(null)
-	const simblesRef = useRef(null)
-
-	const [filter, setFilter] = useState('all')
+	const [filter, setFilter] = useState('simbolos')
 
 	return (
 		<>
@@ -144,7 +141,7 @@ export default function Home() {
 								próxima arte corporal.
 							</p>
 							<h2 className="text-white text-5xl font-bold font-[family-name:var(--font-antonio-sans)] mb-10">
-								Galeria de TATTOO's
+								Galeria
 							</h2>
 
 							{/* BOTÕES DE FILTRO */}
@@ -222,14 +219,14 @@ export default function Home() {
 										</div>
 									</button>
 									<button
-										data-filter="fechamentos"
+										data-filter="personalizados"
 										onClick={() =>
 											setFilter(
-												filter === 'fechamentos' ? 'all' : 'fechamentos'
+												filter === 'personalizados' ? 'all' : 'personalizados'
 											)
 										}
 										className={`hidden sm:block relative transition-transform grayscale triangle inverted ${
-											filter === 'fechamentos'
+											filter === 'personalizados'
 												? 'scale-105 grayscale-0 z-10'
 												: ''
 										}`}
@@ -243,7 +240,7 @@ export default function Home() {
 										/>
 										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
-												Fechamentos
+												Personalizados
 											</div>
 										</div>
 									</button>
@@ -275,14 +272,14 @@ export default function Home() {
 									style={{ marginTop: '-40px' }}
 								>
 									<button
-										data-filter="fechamentos"
+										data-filter="personalizados"
 										onClick={() =>
 											setFilter(
-												filter === 'fechamentos' ? 'all' : 'fechamentos'
+												filter === 'personalizados' ? 'all' : 'personalizados'
 											)
 										}
 										className={`relative transition-transform grayscale triangle inverted ${
-											filter === 'fechamentos'
+											filter === 'personalizados'
 												? 'scale-105 grayscale-0 z-10'
 												: ''
 										}`}
@@ -296,7 +293,7 @@ export default function Home() {
 										/>
 										<div className="absolute top-0 left-0 w-full h-full flex flex-col align-center justify-center select-none">
 											<div className="font-[family-name:var(--font-antonio-sans)] text-shadow-sm">
-												Fechamentos
+												Personalizados
 											</div>
 										</div>
 									</button>
@@ -327,12 +324,7 @@ export default function Home() {
 							{/* /BOTÕES DE FILTRO */}
 
 							{/* GALERIAS */}
-							<div
-								className={`${
-									filter !== 'simbolos' ? 'flex' : 'hidden'
-								} flex-row flex-wrap gap-5`}
-								ref={galleryRef}
-							>
+							<div className="flex flex-row flex-wrap gap-5">
 								<div
 									className={`${
 										[...filter.matchAll('coberturas|all', 'g')].length
@@ -415,15 +407,15 @@ export default function Home() {
 								</div>
 								<div
 									className={`${
-										[...filter.matchAll('fechamentos|all', 'g')].length
+										[...filter.matchAll('personalizados|all', 'g')].length
 											? 'block'
 											: 'hidden'
 									} text-white text-xs flex-1 basis-auto`}
-									data-filter="fechamentos"
+									data-filter="personalizados"
 								>
 									<Image
 										src="/images/tattoo-thumb-01.jpg"
-										alt="Fechamentos"
+										alt="Personalizados"
 										className="object-cover"
 										width={175}
 										height={200}
@@ -525,14 +517,6 @@ export default function Home() {
 										height={200}
 									/>
 								</div>
-							</div>
-
-							<div
-								className={`${
-									filter === 'simbolos' ? 'flex' : 'hidden'
-								} flex-row flex-wrap gap-3`}
-								ref={simblesRef}
-							>
 								<div
 									className={`${
 										filter === 'simbolos' ? 'block' : 'hidden'
