@@ -93,15 +93,6 @@ const Navigation = () => {
 					</li>
 					<li>
 						<a
-							href="#orcamento"
-							className="block px-4 py-4 text-xl uppercase bg-transparent text-white border border-transparent transition-all duration-300 border-b-white md:border-0 hover:bg-white hover:text-black md:hover:text-black"
-							title=""
-						>
-							Orçamento
-						</a>
-					</li>
-					<li>
-						<a
 							href="#contato"
 							className="block px-4 py-4 text-xl uppercase bg-transparent text-white border border-transparent transition-all duration-300 border-b-white md:border-0 hover:bg-white hover:text-black md:hover:text-black"
 							title=""

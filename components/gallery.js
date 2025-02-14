@@ -28,8 +28,6 @@ const GalleryFilterButton = ({ index, button, filter, setFilter }) => {
 }
 
 const GalleryItem = ({ item, filter }) => {
-	console.log(item)
-
 	return (
 		<div
 			className={`${

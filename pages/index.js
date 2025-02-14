@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Accordion from '@/components/accordion'
 import Gallery from '@/components/gallery'
 import Navigation from '@/components/navigation'
+import FormContact from '@/components/form-contact'
 
 export default function Home() {
 	const galleryFilters = [
@@ -97,9 +98,7 @@ export default function Home() {
 				<link rel="preload" href="/images/DSC_0515.jpg" as="image" />
 				<link rel="preload" href="/images/DSC_0087.jpg" as="image" />
 			</Head>
-			<main
-				className={`flex flex-col pb-20 md:pb-8 box-border relative overflow-hidden`}
-			>
+			<main className={`flex flex-col box-border relative overflow-hidden`}>
 				<header
 					className="h-screen z-20"
 					style={{
@@ -138,9 +137,12 @@ export default function Home() {
 									expressar, por meio da arte, a conexão com o corpo, mente e
 									espírito.
 								</p>
-								<button className="border border-white text-white text-xl font-bold font-[family-name:var(--font-antonio-sans)] px-4 py-4 mt-12 uppercase transition-all duration-300 hover:bg-white hover:text-black">
-									Orçamento
-								</button>
+								<Link
+									href="#contato"
+									className="border border-white text-white text-xl font-bold font-[family-name:var(--font-antonio-sans)] text-center px-4 py-4 mt-12 uppercase transition-all duration-300 hover:bg-white hover:text-black"
+								>
+									Contato
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -206,8 +208,26 @@ export default function Home() {
 				<section className="bg-black" id="blog">
 					<div className="container mx-auto px-4 py-20">
 						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
-							Blog
+							Últimos Posts
 						</h2>
+					</div>
+				</section>
+				<section className="" id="eventos">
+					<div className="container mx-auto px-4 py-20">
+						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
+							Eventos
+						</h2>
+					</div>
+				</section>
+				<section className="bg-black" id="contato">
+					<div className="container mx-auto px-4 py-20">
+						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
+							Entre em contato
+						</h2>
+						<p className="text-sm text-gray-400 text-center mb-6">
+							Tem dúvidas ou quer marcar um horário? Me envie uma mensagem!
+						</p>
+						<FormContact />
 					</div>
 				</section>
 			</main>
