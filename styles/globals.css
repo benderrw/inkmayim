@@ -21,6 +21,11 @@ body {
 	width: 8em;
 	height: 8em;
 	margin-left: -3em;
+	clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.inverted {
+	clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
 }
 
 @media (min-width: 640px) {

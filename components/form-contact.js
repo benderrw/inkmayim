@@ -25,7 +25,7 @@ const FormContact = () => {
 						type="text"
 						id="name"
 						name="name"
-						placeholder="Nome"
+						placeholder=""
 						className="border border-white px-4 py-4 bg-transparent text-white"
 						value={data.name}
 						onChange={(e) => setData({ ...data, name: e.target.value })}
@@ -44,7 +44,7 @@ const FormContact = () => {
 						type="text"
 						id="tel"
 						name="tel"
-						placeholder="Telefone"
+						placeholder=""
 						className="border border-white px-4 py-4 bg-transparent text-white"
 						value={data.tel}
 						onChange={(e) => setData({ ...data, tel: e.target.value })}
@@ -63,7 +63,7 @@ const FormContact = () => {
 						type="email"
 						id="email"
 						name="email"
-						placeholder="E-mail"
+						placeholder=""
 						className="border border-white px-4 py-4 bg-transparent text-white"
 						value={data.email}
 						onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -79,7 +79,7 @@ const FormContact = () => {
 						Sua mensagem
 					</label>
 					<textarea
-						rows={4}
+						rows={5}
 						id="message"
 						name="message"
 						placeholder="Utilize este espaço para nos explicar a sua idéia e as suas expectativas. Isso nos ajudará a entender melhor o seu projeto e a fornecer uma proposta mais personalizada."

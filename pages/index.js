@@ -5,6 +5,7 @@ import Accordion from '@/components/accordion'
 import Gallery from '@/components/gallery'
 import Navigation from '@/components/navigation'
 import FormContact from '@/components/form-contact'
+import ShortPosts from '@/components/short-posts'
 
 export default function Home() {
 	const galleryFilters = [
@@ -65,6 +66,40 @@ export default function Home() {
 			title: 'Como funciona a entrega?',
 			content:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.'
+		}
+	]
+	const blogPosts = [
+		{
+			subject: 'Tattoo',
+			title: 'Como funciona a entrega?',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.',
+			thumbnail: {
+				src: '/images/20241222_192429.jpg',
+				alt: 'Como funciona a entrega?'
+			},
+			slug: '/blog/como-funciona-a-entrega'
+		},
+		{
+			subject: 'Piercing',
+			title: 'Como funciona a entrega?',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.',
+			thumbnail: {
+				src: '/images/20241222_192429.jpg',
+				alt: 'Como funciona a entrega?'
+			},
+			slug: '/blog/como-funciona-a-entrega'
+		},
+		{
+			title: 'Tattoo',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.',
+			thumbnail: {
+				src: '/images/20241222_192429.jpg',
+				alt: 'Como funciona a entrega?'
+			},
+			slug: '/blog/como-funciona-a-entrega'
 		}
 	]
 
@@ -152,7 +187,7 @@ export default function Home() {
 						<div className="flex flex-row gap-12">
 							<div className="w-2/5 hidden md:block">
 								<Image
-									src=""
+									src="/images/DSC_0913.jpg"
 									width={150}
 									height={150}
 									alt=""
@@ -210,6 +245,7 @@ export default function Home() {
 						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
 							Últimos Posts
 						</h2>
+						<ShortPosts items={blogPosts} />
 					</div>
 				</section>
 				<section className="" id="eventos">

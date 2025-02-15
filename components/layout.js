@@ -13,7 +13,7 @@ const antonioSans = Antonio({
 export default function Layout({ children }) {
 	return (
 		<div
-			className={`${interSans.variable} ${antonioSans.variable} font-[family-name:var(--font-inter-sans)]`}
+			className={`${interSans.variable} ${antonioSans.variable} font-[family-name:var(--font-inter-sans)] antialiased`}
 		>
 			{children}
 		</div>

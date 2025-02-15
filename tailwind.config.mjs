@@ -14,18 +14,6 @@ export default {
 				screens: {
 					'3xl': '1280px'
 				}
-			},
-			keyframes: {
-				swipe: {
-					'0%, 100%': { transform: 'translateX(0)' },
-					'50%': { transform: 'translateX(20px)' }
-				}
-			},
-			animation: {
-				swipe: 'swipe 2.5s ease-in-out infinite'
-			},
-			aspectRatio: {
-				'1/2.75': '1/2.75'
 			}
 		}
 	},
@@ -36,12 +24,6 @@ export default {
 				'.box-shadow-sm': { boxShadow: 'inset 0 0 0px 0.3px #333' },
 				'.box-shadow-lg': {
 					boxShadow: 'inset 0px -40vh 23px -8px rgba(0,0,0,.80)'
-				},
-				'.triangle': {
-					'clip-path': 'polygon(50% 0%, 100% 100%, 0% 100%)'
-				},
-				'.triangle.inverted': {
-					'clip-path': 'polygon(0% 0%, 100% 0%, 50% 100%)'
 				}
 			})
 		}
