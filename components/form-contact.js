@@ -1,13 +1,52 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 const FormContact = () => {
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState({})
+	const firstField = useRef()
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
 		setLoading(true)
-		await new Promise((resolve) => setTimeout(resolve, 5000))
+
+		try {
+			const formData = {
+				nome: data.nome,
+				email: data.email,
+				telefone: data.telefone,
+				mensagem: data.mensagem
+			}
+
+			console.log('Enviando dados:', formData)
+
+			const response = await fetch('/api/contatos', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
+
+			const responseData = await response.json()
+
+			console.log(responseData)
+
+			if (response.ok) {
+				toast.success('Formulário enviado com sucesso!')
+				setData({
+					nome: '',
+					telefone: '',
+					email: '',
+					mensagem: ''
+				})
+			} else {
+				toast.error('Erro ao enviar formulário.')
+			}
+		} catch (error) {
+			toast.error(error.message)
+		}
+
 		setLoading(false)
 	}
 
@@ -24,30 +63,31 @@ const FormContact = () => {
 					<input
 						type="text"
 						id="name"
-						name="name"
+						name="nome"
 						placeholder=""
 						className="border border-white px-4 py-4 bg-transparent text-white"
-						value={data.name}
-						onChange={(e) => setData({ ...data, name: e.target.value })}
+						value={data.nome}
+						onChange={(e) => setData({ ...data, nome: e.target.value })}
 						required
+						ref={firstField}
 					/>
 				</div>
 
 				<div className="w-full md:w-[calc(50%-8px)] flex flex-col gap-2">
 					<label
-						htmlFor="tel"
+						htmlFor="telefone"
 						className="text-lg text-white font-[family-name:var(--font-antonio-sans)]"
 					>
 						Telefone
 					</label>
 					<input
 						type="text"
-						id="tel"
-						name="tel"
+						id="telefone"
+						name="telefone"
 						placeholder=""
 						className="border border-white px-4 py-4 bg-transparent text-white"
-						value={data.tel}
-						onChange={(e) => setData({ ...data, tel: e.target.value })}
+						value={data.telefone}
+						onChange={(e) => setData({ ...data, telefone: e.target.value })}
 						required
 					/>
 				</div>
@@ -81,11 +121,11 @@ const FormContact = () => {
 					<textarea
 						rows={5}
 						id="message"
-						name="message"
+						name="mensagem"
 						placeholder="Utilize este espaço para nos explicar a sua idéia e as suas expectativas. Isso nos ajudará a entender melhor o seu projeto e a fornecer uma proposta mais personalizada."
 						className="border border-white px-4 py-4 bg-transparent text-white"
-						value={data.message}
-						onChange={(e) => setData({ ...data, message: e.target.value })}
+						value={data.mensagem}
+						onChange={(e) => setData({ ...data, mensagem: e.target.value })}
 						required
 					></textarea>
 				</div>

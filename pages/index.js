@@ -188,10 +188,11 @@ export default function Home() {
 							<div className="w-2/5 hidden md:block">
 								<Image
 									src="/images/DSC_0913.jpg"
-									width={150}
-									height={150}
+									width={3264}
+									height={4928}
 									alt=""
-									className="w-full"
+									className="w-full object-cover"
+									style={{ aspectRatio: '1/1.25' }}
 								/>
 							</div>
 							<div className="w-full md:w-3/5">

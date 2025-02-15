@@ -1,4 +1,5 @@
 import { Inter, Antonio } from 'next/font/google'
+import { Toaster } from '@/components/ui/sonner'
 
 const interSans = Inter({
 	variable: '--font-inter-sans',
@@ -16,6 +17,7 @@ export default function Layout({ children }) {
 			className={`${interSans.variable} ${antonioSans.variable} font-[family-name:var(--font-inter-sans)] antialiased`}
 		>
 			{children}
+			<Toaster richColors position="bottom-left" />
 		</div>
 	)
 }
