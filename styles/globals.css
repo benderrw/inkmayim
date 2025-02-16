@@ -20,8 +20,10 @@ body {
 .triangle {
 	width: 8em;
 	height: 8em;
-	margin-left: -3em;
 	clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+.triangle + .triangle {
+	margin-left: -3em;
 }
 
 .inverted {
@@ -32,6 +34,8 @@ body {
 	.triangle {
 		width: 11em;
 		height: 11em;
+	}
+	.triangle + .triangle {
 		margin-left: -5em;
 	}
 }
@@ -40,6 +44,8 @@ body {
 	.triangle {
 		width: 12em;
 		height: 12em;
+	}
+	.triangle + .triangle {
 		margin-left: -5em;
 	}
 }
@@ -48,12 +54,14 @@ body {
 	.triangle {
 		width: 14em;
 		height: 14em;
+	}
+	.triangle + .triangle {
 		margin-left: -6em;
 	}
 }
 
 @layer base {
-  :root {
+	:root {
 		--radius: 0.5rem;
 	}
 }

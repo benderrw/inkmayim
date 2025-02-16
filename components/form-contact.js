@@ -33,7 +33,7 @@ const FormContact = () => {
 			console.log(responseData)
 
 			if (response.ok) {
-				toast.success('Formulário enviado com sucesso!')
+				toast.success(responseData.message)
 				setData({
 					nome: '',
 					telefone: '',
