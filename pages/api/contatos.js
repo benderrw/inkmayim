@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
 			if (contatoExistente) {
 				// Se o contato existe, apenas cria uma nova mensagem
-				const novaMensagem = await prisma.mensagens.create({
+				await prisma.mensagens.create({
 					data: {
 						mensagem: mensagem,
 						contatoId: contatoExistente.id,
@@ -35,10 +35,25 @@ export default async function handler(req, res) {
 					}
 				})
 
-				console.log('contatoExistente', contatoExistente)
+				// Verifica se o contato já existe pelo email
+				const telefoneExistente = await prisma.telefones.findUnique({
+					where: {
+						telefone
+					}
+				})
+
+				// Se o telefone não existe, cria o telefone
+				if (!telefoneExistente) {
+					await prisma.telefones.create({
+						data: {
+							telefone,
+							contatoId: contatoExistente.id
+						}
+					})
+				}
 
 				return res.status(201).json({
-					message: `Muito obrigada pelo contato ${contatoExistente.nome}! Entrei em contato com você em breve!`,
+					message: `Gratidão pelo contato ${contatoExistente.nome}! Entrei em contato com você em breve!`,
 					contato: contatoExistente
 				})
 			} else {
@@ -47,28 +62,30 @@ export default async function handler(req, res) {
 					data: {
 						nome,
 						email,
-						telefone,
+						telefones: {
+							create: [
+								{
+									telefone
+								}
+							]
+						},
 						mensagens: {
 							create: [
 								{
 									mensagem,
-									imagens: null // ou um array de URLs se você tiver imagens
+									imagens // ou um array de URLs se você tiver imagens
 								}
 							]
 						}
-					},
-					include: {
-						mensagens: true
 					}
 				})
 
 				return res.status(201).json({
-					message: `Muito obrigada pelo contato ${novoContato.nome}! Entrei em contato com você em breve!`,
+					message: `Gratidão pelo contato ${novoContato.nome}! Entrei em contato com você em breve!`,
 					contato: novoContato
 				})
 			}
 		} catch (error) {
-			console.error('Erro detalhado:', error)
 			return res.status(500).json({
 				error: 'Erro ao processar requisição',
 				details: error.message

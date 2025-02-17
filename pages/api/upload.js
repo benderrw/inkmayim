@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 		uploadDir,
 		keepExtensions: true,
 		maxFiles: 4,
-		maxFileSize: 5 * 1024 * 1024, // 5MB
+		maxFileSize: 4 * 5 * 1024 * 1024, // 5MB
 		multiples: true,
 		filename: (name, ext, part) => {
 			return `${Date.now()}-${part.originalFilename.replace(/\s+/g, '-')}`

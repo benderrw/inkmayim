@@ -17,23 +17,31 @@ model Contatos {
   id          String @id @default(uuid())
   nome        String
   email       String @unique
-  telefone    String?
   criadoEm    DateTime @default(now())
+  telefones   Telefones[]
   mensagens   Mensagens[]
 }
 
 model Mensagens {
   id          String @id @default(uuid())
-  contatoId   String
-  contato     Contatos @relation(fields: [contatoId], references: [id], onDelete: Cascade)
   mensagem    String
   imagens     Json? // Array de URLs das imagens enviadas
   criadoEm    DateTime @default(now())
+  contatoId   String
+  contato     Contatos @relation(fields: [contatoId], references: [id], onDelete: Cascade)
 }
 
-model Galeria {
+model Telefones {
   id          String   @id @default(uuid())
-  alt         String
-  src         String   @unique
+  telefone    String   @unique
   criadoEm    DateTime @default(now())
+  contatoId   String
+  contato     Contatos @relation(fields: [contatoId], references: [id], onDelete: Cascade)
 }
+
+// model Galeria {
+//   id          String   @id @default(uuid())
+//   alt         String
+//   src         String   @unique
+//   criadoEm    DateTime @default(now())
+// }
