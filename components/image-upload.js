@@ -1,8 +1,6 @@
-import { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'sonner'
 import { Upload, X } from 'lucide-react'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Label } from '@/components/ui/label'
 
 const ImageUpload = ({ images, setImages }) => {
@@ -54,7 +52,42 @@ const ImageUpload = ({ images, setImages }) => {
 		})
 	}
 
-	const { getRootProps, getInputProps } = useDropzone({
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDropRejected: (rejectedFiles) => {
+			if (rejectedFiles[0].errors[0].code === 'too-many-files') {
+				toast.error(
+					'Máximo de 4 imagens permitido. Remova algumas imagens para continuar.'
+				)
+				return
+			} else {
+				rejectedFiles.forEach(({ file, errors }) => {
+					const { name } = file
+
+					errors.forEach((error) => {
+						switch (error.code) {
+							case 'file-invalid-type':
+								toast.error(`Arquivo "${name}" possui um formato inválido.`)
+								break
+							case 'file-too-large':
+								toast.error(
+									`Arquivo "${name}" é muito grande. O tamanho máximo permitido é 5MB.`
+								)
+								break
+							case 'file-too-small':
+								toast.error(`Arquivo "${name}" é muito pequeno. Tente outro.`)
+								break
+							default:
+								toast.error(`Erro ao processar "${name}".`)
+						}
+					})
+				})
+			}
+		},
+		onValidate: (file, fileList) => {
+			return {
+				maxFiles: 4
+			}
+		},
 		onDrop,
 		accept: { 'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp'] },
 		maxFiles: 4,
@@ -69,17 +102,36 @@ const ImageUpload = ({ images, setImages }) => {
 			<div className="border border-white p-4">
 				<div
 					{...getRootProps()}
-					className="flex flex-col items-center justify-center w-full h-32 border border-white border-dashed rounded-none cursor-pointer bg-transparent hover:bg-white/5 transition-colors"
+					className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed transition-all duration-300 rounded-lg cursor-pointer
+					${
+						isDragActive
+							? 'border-blue-400 bg-blue-50/10 scale-105 animate-pulse'
+							: 'border-white bg-transparent hover:bg-white/5'
+					}
+      `}
 				>
 					<input {...getInputProps()} />
 					<div className="flex flex-col items-center justify-center pt-5 pb-6">
-						<Upload className="w-8 h-8 mb-2 text-white" />
-						<p className="text-sm text-white text-center">
-							Clique ou arraste e solte imagens aqui
-							<span className="block text-xs font-extralight mt-1">
-								(até 4 imagens, até 5MB cada)
-							</span>
-						</p>
+						<Upload
+							className={`w-8 h-8 mb-2 transition-colors duration-300 ${
+								isDragActive ? 'text-blue-400' : 'text-white'
+							}`}
+						/>
+						{isDragActive ? (
+							<p className="text-sm text-blue-400 text-center font-medium">
+								Solte as imagens aqui
+								<span className="block text-xs font-light mt-1 animate-bounce">
+									Pronto para upload!
+								</span>
+							</p>
+						) : (
+							<p className="text-sm text-white text-center">
+								Clique ou arraste e solte imagens aqui
+								<span className="block text-xs font-extralight mt-1">
+									(até 4 imagens, até 5MB cada)
+								</span>
+							</p>
+						)}
 					</div>
 				</div>
 
