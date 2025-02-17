@@ -1,32 +1,41 @@
 import { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { toast } from 'sonner'
 import { Upload, X } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Label } from '@/components/ui/label'
 
 const ImageUpload = ({ onImagesChange }) => {
 	const [images, setImages] = useState([])
-	const [error, setError] = useState('')
 
 	const onDrop = useCallback(
-		(acceptedFiles) => {
-			if (acceptedFiles.length + images.length > 4) {
-				setError('Máximo de 4 imagens permitido')
+		(files) => {
+			// Verifica se o número total de imagens não excede 4
+			if (files.length + images.length > 4) {
+				toast.error('Máximo de 4 imagens permitido')
 				return
 			}
 
-			const validFiles = acceptedFiles.filter((file) => {
-				const isValid = file.type.startsWith('image/')
+			// Filtra os arquivos para garantir que sejam imagens e não excedem o tamanho máximo
+			const validFiles = files.filter((file) => {
+				const isTypeImage = file.type.startsWith('image/')
 				const isUnderSize = file.size <= 5 * 1024 * 1024 // 5MB
-				return isValid && isUnderSize
+				console.log(
+					`FILE:\nisUnderSize: ${isUnderSize}\nisTypeImage: ${isTypeImage}`
+				)
+				return isTypeImage && isUnderSize
 			})
 
-			if (validFiles.length !== acceptedFiles.length) {
-				setError(
-					'Algumas imagens foram rejeitadas. Use apenas imagens até 5MB.'
+			// Se algum arquivo não for uma imagem ou exceder o tamanho máximo, exibe um alerta
+			if (validFiles.length !== files.length) {
+				toast.error(
+					files.length === 1
+						? 'O arquivo deve ser uma imagem até 5MB'
+						: 'Algumas imagens foram rejeitadas. Use apenas imagens até 5MB.'
 				)
 			}
 
+			// Gera uma URL temporária para visualizar o arquivo no navegador sem precisar enviá-lo para um servidor
 			const newImages = validFiles.map((file) => ({
 				file,
 				preview: URL.createObjectURL(file)
@@ -34,10 +43,15 @@ const ImageUpload = ({ onImagesChange }) => {
 
 			setImages((prev) => {
 				const updatedImages = [...prev, ...newImages]
+				console.log('updatedImages', updatedImages)
+				console.log(
+					'updatedImages.map((img) => img.file)',
+					updatedImages.map((img) => img.file)
+				)
 				onImagesChange(updatedImages.map((img) => img.file))
+				console.log('return updatedImages', updatedImages)
 				return updatedImages
 			})
-			setError('')
 		},
 		[images, onImagesChange]
 	)
@@ -72,17 +86,14 @@ const ImageUpload = ({ onImagesChange }) => {
 					<input {...getInputProps()} />
 					<div className="flex flex-col items-center justify-center pt-5 pb-6">
 						<Upload className="w-8 h-8 mb-2 text-white" />
-						<p className="text-sm text-white">
-							Clique ou arraste até 4 imagens de referência
+						<p className="text-sm text-white text-center">
+							Clique ou arraste e solte imagens aqui
+							<span className="block text-xs font-extralight mt-1">
+								(até 4 imagens, até 5MB cada)
+							</span>
 						</p>
 					</div>
 				</div>
-
-				{error && (
-					<Alert variant="destructive" className="mt-4">
-						<AlertDescription>{error}</AlertDescription>
-					</Alert>
-				)}
 
 				{images.length > 0 && (
 					<div className="grid grid-cols-2 gap-4 mt-4">

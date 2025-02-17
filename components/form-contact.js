@@ -9,33 +9,44 @@ const FormContact = () => {
 		nome: '',
 		telefone: '',
 		email: '',
-		mensagem: ''
+		mensagem:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 	})
 	const firstField = useRef()
+
+	const onImagesChange = (newImages) => setImages(newImages)
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
 		setLoading(true)
 
 		try {
-			// Upload das imagens primeiro
 			const imageUrls = []
+
 			if (images.length > 0) {
+				// Cria um objeto FormData para enviar as imagens
 				const formData = new FormData()
+
+				// Adiciona cada imagem ao FormData
 				images.forEach((image) => {
 					formData.append('files', image)
 				})
 
+				// Faça o upload das imagens para o servidor
 				const uploadResponse = await fetch('/api/upload', {
 					method: 'POST',
 					body: formData
 				})
 
+				// Verifica se o upload foi bem-sucedido
 				if (!uploadResponse.ok) {
 					throw new Error('Erro ao fazer upload das imagens')
 				}
 
+				// Obtém as URLs das imagens
 				const { urls } = await uploadResponse.json()
+
+				// Adiciona as URLs das imagens ao array
 				imageUrls.push(...urls)
 			}
 
@@ -158,11 +169,7 @@ const FormContact = () => {
 				</div>
 
 				<div className="w-full flex flex-col gap-2">
-					<ImageUpload
-						onImagesChange={(newImages) => {
-							setImages(newImages)
-						}}
-					/>
+					<ImageUpload onImagesChange={onImagesChange} />
 				</div>
 
 				<div className="w-full flex justify-end">
