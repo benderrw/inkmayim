@@ -5,63 +5,51 @@ import { Upload, X } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Label } from '@/components/ui/label'
 
-const ImageUpload = ({ onImagesChange }) => {
-	const [images, setImages] = useState([])
+const ImageUpload = ({ images, setImages }) => {
+	const onDrop = (files) => {
+		// Verifica se o número total de imagens não excede 4
+		if (files.length + images.length > 4) {
+			toast.error('Máximo de 4 imagens permitido')
+			return
+		}
 
-	const onDrop = useCallback(
-		(files) => {
-			// Verifica se o número total de imagens não excede 4
-			if (files.length + images.length > 4) {
-				toast.error('Máximo de 4 imagens permitido')
-				return
-			}
+		// Filtra os arquivos para garantir que sejam imagens e não excedem o tamanho máximo
+		const validFiles = files.filter((file) => {
+			const isTypeImage = file.type.startsWith('image/')
+			const isUnderSize = file.size <= 5 * 1024 * 1024 // 5MB
+			return isTypeImage && isUnderSize
+		})
 
-			// Filtra os arquivos para garantir que sejam imagens e não excedem o tamanho máximo
-			const validFiles = files.filter((file) => {
-				const isTypeImage = file.type.startsWith('image/')
-				const isUnderSize = file.size <= 5 * 1024 * 1024 // 5MB
-				console.log(
-					`FILE:\nisUnderSize: ${isUnderSize}\nisTypeImage: ${isTypeImage}`
-				)
-				return isTypeImage && isUnderSize
-			})
+		// Se algum arquivo não for uma imagem ou exceder o tamanho máximo, exibe um alerta
+		if (validFiles.length !== files.length) {
+			toast.error(
+				files.length === 1
+					? 'O arquivo deve ser uma imagem até 5MB'
+					: 'Algumas imagens foram rejeitadas. Use apenas imagens até 5MB.'
+			)
+		}
 
-			// Se algum arquivo não for uma imagem ou exceder o tamanho máximo, exibe um alerta
-			if (validFiles.length !== files.length) {
-				toast.error(
-					files.length === 1
-						? 'O arquivo deve ser uma imagem até 5MB'
-						: 'Algumas imagens foram rejeitadas. Use apenas imagens até 5MB.'
-				)
-			}
-
+		// Adiciona as imagens válidas ao estado
+		setImages((prev) => {
 			// Gera uma URL temporária para visualizar o arquivo no navegador sem precisar enviá-lo para um servidor
 			const newImages = validFiles.map((file) => ({
 				file,
 				preview: URL.createObjectURL(file)
 			}))
 
-			setImages((prev) => {
-				const updatedImages = [...prev, ...newImages]
-				console.log('updatedImages', updatedImages)
-				console.log(
-					'updatedImages.map((img) => img.file)',
-					updatedImages.map((img) => img.file)
-				)
-				onImagesChange(updatedImages.map((img) => img.file))
-				console.log('return updatedImages', updatedImages)
-				return updatedImages
-			})
-		},
-		[images, onImagesChange]
-	)
+			// Retorna o array atualizado com as novas imagens
+			return [...prev, ...newImages]
+		})
+	}
 
 	const removeImage = (index) => {
 		setImages((prev) => {
 			const newImages = [...prev]
+			// Limpa a URL temporária quando o componente é desmontado
 			URL.revokeObjectURL(newImages[index].preview)
+
+			// Remove a imagem do array
 			newImages.splice(index, 1)
-			onImagesChange(newImages.map((img) => img.file))
 			return newImages
 		})
 	}

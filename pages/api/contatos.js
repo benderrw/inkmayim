@@ -35,8 +35,10 @@ export default async function handler(req, res) {
 					}
 				})
 
-				return res.status(200).json({
-					message: 'Mensagem adicionada ao contato existente',
+				console.log('contatoExistente', contatoExistente)
+
+				return res.status(201).json({
+					message: `Muito obrigada pelo contato ${contatoExistente.nome}! Entrei em contato com você em breve!`,
 					contato: contatoExistente
 				})
 			} else {
@@ -61,7 +63,7 @@ export default async function handler(req, res) {
 				})
 
 				return res.status(201).json({
-					message: 'Formulário enviado com sucesso!',
+					message: `Muito obrigada pelo contato ${novoContato.nome}! Entrei em contato com você em breve!`,
 					contato: novoContato
 				})
 			}

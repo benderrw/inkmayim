@@ -6,15 +6,12 @@ const FormContact = () => {
 	const [loading, setLoading] = useState(false)
 	const [images, setImages] = useState([])
 	const [data, setData] = useState({
-		nome: '',
-		telefone: '',
-		email: '',
-		mensagem:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+		nome: 'Rodrigo Würdig Bender',
+		telefone: '48996385398',
+		email: 'benderrw@gmail.com',
+		mensagem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 	})
 	const firstField = useRef()
-
-	const onImagesChange = (newImages) => setImages(newImages)
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
@@ -29,7 +26,7 @@ const FormContact = () => {
 
 				// Adiciona cada imagem ao FormData
 				images.forEach((image) => {
-					formData.append('files', image)
+					formData.append('files', image.file)
 				})
 
 				// Faça o upload das imagens para o servidor
@@ -169,7 +166,7 @@ const FormContact = () => {
 				</div>
 
 				<div className="w-full flex flex-col gap-2">
-					<ImageUpload onImagesChange={onImagesChange} />
+					<ImageUpload images={images} setImages={setImages} />
 				</div>
 
 				<div className="w-full flex justify-end">
