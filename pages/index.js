@@ -127,11 +127,6 @@ export default function Home() {
 
 				<meta property="og:url" content="https://www.inkmayim.com.br" />
 				<meta property="og:type" content="website" />
-
-				<link rel="preload" href="/images/20241222_192429.jpg" as="image" />
-				<link rel="preload" href="/images/DSC_0913.jpg" as="image" />
-				<link rel="preload" href="/images/DSC_0515.jpg" as="image" />
-				<link rel="preload" href="/images/DSC_0087.jpg" as="image" />
 			</Head>
 			<main className={`flex flex-col box-border relative overflow-hidden`}>
 				<header

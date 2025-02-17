@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
 	if (req.method === 'POST') {
 		try {
-			const { nome, email, telefone, mensagem } = req.body
+			const { nome, email, telefone, mensagem, imagens } = req.body
 
 			// Verifica se o contato já existe pelo email
 			const contatoExistente = await prisma.contatos.findUnique({
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
 					data: {
 						mensagem: mensagem,
 						contatoId: contatoExistente.id,
-						imagens: null // ou um array de URLs se você tiver imagens
+						imagens
 					}
 				})
 

@@ -1,9 +1,16 @@
 import { useRef, useState } from 'react'
 import { toast } from 'sonner'
+import ImageUpload from '@/components/image-upload'
 
 const FormContact = () => {
 	const [loading, setLoading] = useState(false)
-	const [data, setData] = useState({})
+	const [images, setImages] = useState([])
+	const [data, setData] = useState({
+		nome: '',
+		telefone: '',
+		email: '',
+		mensagem: ''
+	})
 	const firstField = useRef()
 
 	const handleSubmit = async (event) => {
@@ -11,14 +18,35 @@ const FormContact = () => {
 		setLoading(true)
 
 		try {
+			// Upload das imagens primeiro
+			const imageUrls = []
+			if (images.length > 0) {
+				const formData = new FormData()
+				images.forEach((image) => {
+					formData.append('files', image)
+				})
+
+				const uploadResponse = await fetch('/api/upload', {
+					method: 'POST',
+					body: formData
+				})
+
+				if (!uploadResponse.ok) {
+					throw new Error('Erro ao fazer upload das imagens')
+				}
+
+				const { urls } = await uploadResponse.json()
+				imageUrls.push(...urls)
+			}
+
+			// Envio do formulário com as URLs das imagens
 			const formData = {
 				nome: data.nome,
 				email: data.email,
 				telefone: data.telefone,
-				mensagem: data.mensagem
+				mensagem: data.mensagem,
+				imagens: imageUrls
 			}
-
-			console.log('Enviando dados:', formData)
 
 			const response = await fetch('/api/contatos', {
 				method: 'POST',
@@ -30,8 +58,6 @@ const FormContact = () => {
 
 			const responseData = await response.json()
 
-			console.log(responseData)
-
 			if (response.ok) {
 				toast.success(responseData.message)
 				setData({
@@ -40,6 +66,7 @@ const FormContact = () => {
 					email: '',
 					mensagem: ''
 				})
+				setImages([])
 			} else {
 				toast.error('Erro ao enviar formulário.')
 			}
@@ -128,6 +155,14 @@ const FormContact = () => {
 						onChange={(e) => setData({ ...data, mensagem: e.target.value })}
 						required
 					></textarea>
+				</div>
+
+				<div className="w-full flex flex-col gap-2">
+					<ImageUpload
+						onImagesChange={(newImages) => {
+							setImages(newImages)
+						}}
+					/>
 				</div>
 
 				<div className="w-full flex justify-end">
