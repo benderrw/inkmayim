@@ -18,9 +18,9 @@
     <style type="text/css">
       <![CDATA[
       @font-face { font-family:"Windy Wood Demo";font-variant:normal;font-weight:normal;src:url("#FontID0") format(svg)}
-      .str0 {stroke:#373435;stroke-width:20;stroke-miterlimit:22.9256}
-      .fil1 {fill:#373435}
-      .fil0 {fill:#373435}
+      .str0 {stroke:#ffffff;stroke-width:20;stroke-miterlimit:22.9256}
+      .fil1 {fill:#ffffff}
+      .fil0 {fill:#ffffff}
       .fnt0 {font-weight:normal;font-size:1068.07px;font-family:'Windy Wood Demo'}
       ]]>
     </style>
