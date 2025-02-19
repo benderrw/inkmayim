@@ -5,7 +5,7 @@ import Accordion from '@/components/accordion'
 import Workspace from '@/components/workspace'
 import Navigation from '@/components/navigation'
 import FormContact from '@/components/form-contact'
-import ShortPosts from '@/components/short-posts'
+import BlogCardGrid from '@/components/blog-card-grid'
 
 export default function Home({ posts, collections, images }) {
 	const faqItems = [
@@ -28,40 +28,6 @@ export default function Home({ posts, collections, images }) {
 			title: 'Como funciona a entrega?',
 			content:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.'
-		}
-	]
-	const blogPosts = [
-		{
-			subject: 'Tattoo',
-			title: 'Como funciona a entrega?',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.',
-			thumbnail: {
-				src: '/images/20241222_192429.jpg',
-				alt: 'Como funciona a entrega?'
-			},
-			slug: '/blog/como-funciona-a-entrega'
-		},
-		{
-			subject: 'Piercing',
-			title: 'Como funciona a entrega?',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.',
-			thumbnail: {
-				src: '/images/20241222_192429.jpg',
-				alt: 'Como funciona a entrega?'
-			},
-			slug: '/blog/como-funciona-a-entrega'
-		},
-		{
-			title: 'Tattoo',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl vitae aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nunc nisl aliquet nunc.',
-			thumbnail: {
-				src: '/images/20241222_192429.jpg',
-				alt: 'Como funciona a entrega?'
-			},
-			slug: '/blog/como-funciona-a-entrega'
 		}
 	]
 
@@ -179,13 +145,13 @@ export default function Home({ posts, collections, images }) {
 				<section className="bg-black" id="galeria">
 					<div className="container mx-auto px-4 py-20">
 						<div className="flex flex-col items-center">
-							<p className="text-gray-400 text-xs text-center">
+							<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
+								Galeria
+							</h2>
+							<p className="text-sm text-gray-400 text-center mb-10">
 								Confira abaixo a galeria de tatuagens e inspire-se para a sua
 								próxima arte corporal.
 							</p>
-							<h2 className="text-white text-5xl uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-10">
-								Galeria
-							</h2>
 							<Workspace collections={collections} images={images} />
 						</div>
 					</div>
@@ -203,7 +169,7 @@ export default function Home({ posts, collections, images }) {
 						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
 							Últimos Posts
 						</h2>
-						<ShortPosts items={blogPosts} />
+						<BlogCardGrid posts={posts} />
 					</div>
 				</section>
 				<section className="" id="eventos">
@@ -235,7 +201,7 @@ export async function getServerSideProps() {
 			fetch(
 				`${
 					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-				}/api/posts?populate=*&sort=createdAt:desc`
+				}/api/posts?sort=createdAt:desc&pagination[limit]=3&fields[0]=title&fields[1]=summary&fields[2]=slug&populate=featuredImage`
 			),
 			fetch(
 				`${
