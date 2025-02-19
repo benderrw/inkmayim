@@ -6,10 +6,10 @@ const FormContact = () => {
 	const [loading, setLoading] = useState(false)
 	const [images, setImages] = useState([])
 	const [data, setData] = useState({
-		nome: 'Rodrigo Würdig Bender',
-		telefone: '48996385398',
-		email: 'benderrw@gmail.com',
-		mensagem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+		nome: '',
+		telefone: '',
+		email: '',
+		mensagem: ''
 	})
 	const firstField = useRef()
 

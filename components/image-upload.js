@@ -102,12 +102,8 @@ const ImageUpload = ({ images, setImages }) => {
 			<div className="border border-white p-4">
 				<div
 					{...getRootProps()}
-					className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed transition-all duration-300 rounded-lg cursor-pointer
-					${
-						isDragActive
-							? 'border-blue-400 bg-blue-50/10 scale-105 animate-pulse'
-							: 'border-white bg-transparent hover:bg-white/5'
-					}
+					className={`flex flex-col items-center justify-center w-full h-32 border border-dashed transition-all duration-300 rounded-lg cursor-pointer
+					${isDragActive ? 'border-blue-400' : 'border-transparent'}
       `}
 				>
 					<input {...getInputProps()} />

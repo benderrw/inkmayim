@@ -2,50 +2,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import Accordion from '@/components/accordion'
-import Gallery from '@/components/gallery'
+import Workspace from '@/components/workspace'
 import Navigation from '@/components/navigation'
 import FormContact from '@/components/form-contact'
 import ShortPosts from '@/components/short-posts'
 
-export default function Home() {
-	const galleryFilters = [
-		{ label: 'Coberturas', value: 'coberturas', src: '/images/DSC_0087.jpg' },
-		{ label: 'Flash', value: 'flash', src: '/images/DSC_0087.jpg' },
-		{ label: 'Frases', value: 'frases', src: '/images/DSC_0087.jpg' },
-		{
-			label: 'Personalizados',
-			value: 'personalizados',
-			src: '/images/DSC_0087.jpg'
-		},
-		{ label: 'Símbolos', value: 'simbolos', src: '/images/DSC_0087.jpg' }
-	]
-	const galleryItems = [
-		{
-			src: '/images/tattoo-thumb-01.jpg',
-			alt: 'Coberturas',
-			filter: 'coberturas'
-		},
-		{
-			src: '/images/tattoo-thumb-01.jpg',
-			alt: 'Flash',
-			filter: 'flash'
-		},
-		{
-			src: '/images/tattoo-thumb-01.jpg',
-			alt: 'Frases',
-			filter: 'frases'
-		},
-		{
-			src: '/images/tattoo-thumb-01.jpg',
-			alt: 'Personalizados',
-			filter: 'personalizados'
-		},
-		{
-			src: '/images/tattoo-thumb-01.jpg',
-			alt: 'Símbolos',
-			filter: 'simbolos'
-		}
-	]
+export default function Home({ posts, collections, images }) {
 	const faqItems = [
 		{
 			title: 'Como funciona a entrega?',
@@ -224,7 +186,7 @@ export default function Home() {
 							<h2 className="text-white text-5xl uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-10">
 								Galeria
 							</h2>
-							<Gallery filters={galleryFilters} items={galleryItems} />
+							<Workspace collections={collections} images={images} />
 						</div>
 					</div>
 				</section>
@@ -265,4 +227,49 @@ export default function Home() {
 			</main>
 		</>
 	)
+}
+
+export async function getServerSideProps() {
+	try {
+		const [postsRes, collectionsRes, imagesRes] = await Promise.all([
+			fetch(
+				`${
+					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
+				}/api/posts?populate=*&sort=createdAt:desc`
+			),
+			fetch(
+				`${
+					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
+				}/api/collections?populate=*`
+			),
+			fetch(
+				`${
+					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
+				}/api/workspaces?populate=*&sort=createdAt:desc`
+			)
+		])
+
+		const [posts, collections, images] = await Promise.all([
+			postsRes.json(),
+			collectionsRes.json(),
+			imagesRes.json()
+		])
+
+		return {
+			props: {
+				posts: posts.data,
+				collections: collections.data,
+				images: images.data
+			}
+		}
+	} catch (error) {
+		console.error('Erro ao buscar dados:', error)
+		return {
+			props: {
+				posts: [],
+				collections: [],
+				images: []
+			}
+		}
+	}
 }
