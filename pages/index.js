@@ -5,7 +5,53 @@ import Accordion from '@/components/accordion'
 import Workspace from '@/components/workspace'
 import Navigation from '@/components/navigation'
 import FormContact from '@/components/form-contact'
-import BlogCardGrid from '@/components/blog-card-grid'
+import PostCards from '@/components/post-cards'
+
+export async function getServerSideProps() {
+	try {
+		const [postsRes, collectionsRes, imagesRes] = await Promise.all([
+			fetch(
+				`${
+					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
+				}/api/posts?sort=createdAt:desc&pagination[limit]=3&fields[0]=title&fields[1]=summary&fields[2]=slug&populate=featuredImage`
+			),
+			fetch(
+				`${
+					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
+				}/api/collections?populate=*`
+			),
+			fetch(
+				`${
+					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
+				}/api/workspaces?populate=*&sort=createdAt:desc`
+			)
+		])
+
+		const [posts, collections, images] = await Promise.all([
+			postsRes.json(),
+			collectionsRes.json(),
+			imagesRes.json()
+		])
+
+		return {
+			props: {
+				posts: posts.data,
+				collections: collections.data,
+				images: images.data
+			}
+		}
+	} catch (error) {
+		console.error('Erro ao buscar dados:', error)
+
+		return {
+			props: {
+				posts: [],
+				collections: [],
+				images: []
+			}
+		}
+	}
+}
 
 export default function Home({ posts, collections, images }) {
 	const faqItems = [
@@ -169,17 +215,25 @@ export default function Home({ posts, collections, images }) {
 						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
 							Últimos Posts
 						</h2>
-						<BlogCardGrid posts={posts} />
+						<PostCards posts={posts} />
+						<div className="flex justify-center text-center mt-10">
+							<Link
+								href={`/blog`}
+								className="border border-white w-full md:w-1/2 lg:w-1/3 mt-5 text-white text-xl font-bold font-[family-name:var(--font-antonio-sans)] px-4 py-4 uppercase transition-all duration-300 hover:bg-white hover:text-black flex gap-4 justify-center items-center"
+							>
+								Ver todos os posts
+							</Link>
+						</div>
 					</div>
 				</section>
-				<section className="" id="eventos">
+				{/* <section className="" id="eventos">
 					<div className="container mx-auto px-4 py-20">
 						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
 							Eventos
 						</h2>
 					</div>
-				</section>
-				<section className="bg-black" id="contato">
+				</section> */}
+				<section className="" id="contato">
 					<div className="container mx-auto px-4 py-20">
 						<h2 className="text-white text-5xl text-center uppercase font-bold font-[family-name:var(--font-antonio-sans)] mb-12">
 							Entre em contato
@@ -193,49 +247,4 @@ export default function Home({ posts, collections, images }) {
 			</main>
 		</>
 	)
-}
-
-export async function getServerSideProps() {
-	try {
-		const [postsRes, collectionsRes, imagesRes] = await Promise.all([
-			fetch(
-				`${
-					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-				}/api/posts?sort=createdAt:desc&pagination[limit]=3&fields[0]=title&fields[1]=summary&fields[2]=slug&populate=featuredImage`
-			),
-			fetch(
-				`${
-					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-				}/api/collections?populate=*`
-			),
-			fetch(
-				`${
-					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-				}/api/workspaces?populate=*&sort=createdAt:desc`
-			)
-		])
-
-		const [posts, collections, images] = await Promise.all([
-			postsRes.json(),
-			collectionsRes.json(),
-			imagesRes.json()
-		])
-
-		return {
-			props: {
-				posts: posts.data,
-				collections: collections.data,
-				images: images.data
-			}
-		}
-	} catch (error) {
-		console.error('Erro ao buscar dados:', error)
-		return {
-			props: {
-				posts: [],
-				collections: [],
-				images: []
-			}
-		}
-	}
 }

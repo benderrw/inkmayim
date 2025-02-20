@@ -82,7 +82,7 @@ const Navigation = () => {
 							Blog
 						</a>
 					</li>
-					<li>
+					{/* <li>
 						<a
 							href="#eventos"
 							className="block px-4 py-4 text-xl uppercase bg-transparent text-white border border-transparent transition-all duration-300 border-b-white md:border-0 hover:bg-white hover:text-black md:hover:text-black"
@@ -90,7 +90,7 @@ const Navigation = () => {
 						>
 							Eventos
 						</a>
-					</li>
+					</li> */}
 					<li>
 						<a
 							href="#contato"

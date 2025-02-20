@@ -14,7 +14,7 @@ const antonioSans = Antonio({
 export default function Layout({ children }) {
 	return (
 		<div
-			className={`${interSans.variable} ${antonioSans.variable} font-[family-name:var(--font-inter-sans)] antialiased`}
+			className={`${interSans.variable} ${antonioSans.variable} font-[family-name:var(--font-inter-sans)] antialiased dark`}
 		>
 			{children}
 			<Toaster richColors position="bottom-left" />
