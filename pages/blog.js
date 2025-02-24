@@ -14,8 +14,8 @@ export async function getServerSideProps({ query }) {
 	try {
 		const res = await fetch(
 			`${
-				process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-			}/api/posts?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+				process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api'
+			}/posts?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
 		)
 		const data = await res.json()
 

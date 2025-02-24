@@ -1,16 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	images: {
-		remotePatterns: [
+	async rewrites() {
+		return [
 			{
-				protocol: 'http',
-				hostname: 'localhost',
-				port: '1337',
-				pathname: '/**',
-				search: ''
+				source: '/api/:path*',
+				destination: 'http://localhost:1337/api/:path*'
 			}
 		]
+	},
+	output: 'standalone', // Importante para Vercel
+	images: {
+		domains: ['cms.inkmayim.com.br']
 	}
 }
 

@@ -12,18 +12,18 @@ export async function getServerSideProps() {
 		const [postsRes, collectionsRes, imagesRes] = await Promise.all([
 			fetch(
 				`${
-					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-				}/api/posts?sort=createdAt:desc&pagination[limit]=3&fields[0]=title&fields[1]=summary&fields[2]=slug&populate=featuredImage`
+					process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api'
+				}/posts?sort=createdAt:desc&pagination[limit]=3&fields[0]=title&fields[1]=summary&fields[2]=slug&populate=featuredImage`
 			),
 			fetch(
 				`${
-					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-				}/api/collections?populate=*`
+					process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api'
+				}/collections?populate=*`
 			),
 			fetch(
 				`${
-					process.env.PUBLIC_STRAPI_URL || 'http://localhost:1337'
-				}/api/workspaces?populate=*&sort=createdAt:desc`
+					process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api'
+				}/workspaces?populate=*&sort=createdAt:desc`
 			)
 		])
 
